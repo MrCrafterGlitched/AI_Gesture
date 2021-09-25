@@ -1,3 +1,8 @@
+nose_x=0
+nose_y=0
+leftWrist=0
+rightWrist=0
+Difference=0
 function setup() {
     canvas=createCanvas(400,400)
     canvas.position(500,150)
@@ -12,9 +17,18 @@ function model_loaded() {
 }
 function draw() {
     background("#13d6a2")
+    fill("orange")
+    stroke("black")
+    square(nose_x,nose_y,Difference)
 }
 function getPoses(results) {
     if (results.length>0) {
         console.log(results)
-    }
+    nose_x=results[0].pose.nose.x
+    nose_y=results[0].pose.nose.y
+    leftWrist=results[0].pose.leftWrist.x
+    rightWrist=results[0].pose.rightWrist.x
+    Difference=floor(leftWrist-rightWrist)
+    document.getElementById("shape_size").innerHTML="The size of the square is "+ Difference +" px"
+}
 }
